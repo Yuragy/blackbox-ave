@@ -1,0 +1,9 @@
+#ifndef CONFIG_H
+#define CONFIG_H
+
+#define SERVER_IP "@SERVER_IP@"
+#define SERVER_PORT @SERVER_PORT@
+#define BUFFER_SIZE @BUFFER_SIZE@
+#define DB_PATH "@DB_PATH@"
+
+#endif /* CONFIG_H */
