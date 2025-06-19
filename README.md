@@ -2,7 +2,7 @@
   <img src="assets/ave-logo.png" alt="Логотип Ave" width="280">
 </p>
 
-<h2 align="center">Overview</h2>
+<h2 align="center">[Overview]</h2>
 
 
 Ave is a loadable Linux kernel module (5.18+) capable of hiding processes, files, and connected sockets at the kernel level, plus substituting system calls and encrypting traffic. It runs on x86-64 and ARM64. In short, it’s a universal tool for stealthily concealing any objects in the system, with extra features for bypassing SELinux/AppArmor, anti-debugging, and a whole set of other functions.
