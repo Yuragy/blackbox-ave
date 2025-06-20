@@ -27,7 +27,7 @@
 #define _PRCTIMEOUT PRCTIMEOUT
 #endif
 
-enum { PRC_RESET = -1, PRC_READ, PRC_DEC, PRC_TIMEOUT = _PRCTIMEOUT };
+# enum { PRC_RESET = -1, PRC_READ, PRC_DEC, PRC_TIMEOUT = _PRCTIMEOUT };
 
 struct task_struct *tsk_sniff = NULL;
 struct task_struct *tsk_prc = NULL;
