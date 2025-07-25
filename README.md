@@ -5,24 +5,24 @@
 <h2 align="center">[Overview]</h2>
 
 
-Ave is a loadable Linux kernel module (5.18+) capable of hiding processes, files, and connected sockets at the kernel level, plus substituting system calls and encrypting traffic. It runs on x86-64 and ARM64. In short, it’s a universal tool for stealthily concealing any objects in the system, with extra features for bypassing SELinux/AppArmor, anti-debugging, and a whole set of other functions.
+Ave is a loadable Linux kernel module 5.18+ capable of hiding processes, files, and connected sockets at the kernel level, plus substituting system calls and encrypting traffic. It runs on x86-64 and ARM64. In short, it’s a universal tool for stealthily concealing any objects in the system, with extra features for bypassing SELinux/AppArmor, anti-debugging, and a whole set of other functions.
 
-*Key capabilities:*
-- **Kernel-level cloaking** — removes traces from `lsmod`, `/proc`, `/sys`, `ps`, `top`, etc.  
-- **File & directory hiding** — `filldir`/`filldir64` hooks suppress listings.  
-- **Dynamic syscall substitution** — live patching of `read`, `kill`, `clone`. 
-- **Encrypted networking** — Netfilter-based AES tunnel with signature obfuscation.  
-- **Anti-debug & hardening bypass** — blocks `ptrace/strace`, skirts `RELRO/PIE/NX`.  
-- **Persistence** — ELF patching & init-system hooks for auto-start.  
+Key capabilities:
+- **Kernel level cloaking** — removes traces from lsmod, /proc, /sys, ps, top.  
+- **File & directory hiding** — filldir/filldir64 hooks suppress listings.  
+- **Dynamic syscall substitution** — live patching of read, kill, `clone`. 
+- **Encrypted networking** — Netfilter based AES tunnel with signature obfuscation.  
+- **Anti debug & hardening bypass** — blocks ptrace/strace, skirts RELRO/PIE/NX.  
+- **Persistence** — ELF patching & init-system hooks for auto start.  
 
 ---
 
 ## Disclaimer
-> ⚠️ **Educational & Research Purposes Only**  
+> ⚠️ Educational & Research Purposes Only 
 > This code is provided *as is* with the explicit intention that it be studied in controlled, legal environments—such as security research labs, malware-analysis sandboxes, or coursework on kernel internals.  
 >
 > *You are solely responsible for any use or misuse.*  
-> Deploying Ave on systems without the explicit permission of their owners **may violate local, national, and international laws**. The authors and maintainers accept **no liability** for damages, data loss, or legal consequences arising from the use of this software.  
+> Deploying Ave on systems without the explicit permission of their owners may violate local, national, and international laws. The authors and maintainers accept no liability for damages, data loss, or legal consequences arising from the use of this software.  
 >
 > Always obtain informed, written consent before testing on any device you do not own, and comply with all relevant regulations and organizational policies.
 
@@ -44,7 +44,7 @@ sudo ln -s ~/.local/bin/lit /usr/bin/llvm-lit
 
    ```bash
    mkdir build && cd build
-   cmake ../ -DCMAKE_C_COMPILER=gcc -DPROCNAME="interface_name"
+   cmake ../ -DCMAKE_C_COMPILER=gcc -DPROCNAME="interface"
    ```
 
 2. Start the build:
@@ -66,33 +66,33 @@ make
 
 ### 1. Module masking
 
-Ave removes itself from `lsmod`, `/sys`, and other places where the module is normally visible. In **DEPLOY** mode all this works out of the box.
+Ave removes itself from lsmod, sys, and other places where the module is normally visible. In DEPLOY mode all this works out of the box.
 
 ### 2. Hiding files and directories
 
-Uses the `filldir` and `filldir64` hooks:
+Uses the filldir and filldir64 hooks:
 
-* Everything that’s hidden vanishes from `ls`, `ps`, `top`, etc.
+* Everything that’s hidden vanishes from ls, ps, top.
 * No traces in standard utilities.
 
 ### 3. System calls
 
-A mix of **Ftrace** hooks and direct editing of the system-call table:
+Mix of Ftrace hooks and direct editing of the system-call table:
 
 * Dynamically updates hooks as the kernel changes.
-* Replaces, for example, `read`, `kill`, `clone`, etc.
+* Replaces, for example, read, kill, clone.
 
 ### 4. Working with the network stack
 
-Through **netfilter** Ave controls connections and generates hidden signatures. Everything is encrypted with AES.
+Through netfilter Ave controls connections and generates hidden signatures. Everything is encrypted with AES.
 
 ### 5. Bypassing kernel protections
 
-SELinux, AppArmor, and the `relro`, `pie`, `nx` protections are bypassed, adapting to the specific system configuration.
+SELinux, AppArmor, and the relro, pie, nx protections are bypassed, adapting to the specific system configuration.
 
-### 6. Anti-debug
+### 6. Anti debug
 
-* Filters and blocks `ptrace`, `strace`, and other debuggers.
+* Filters and blocks ptrace, strace, and other debuggers.
 * Data in memory is encrypted to resist dumping and analysis.
 * On debugging attempts the module starts substituting information.
 
