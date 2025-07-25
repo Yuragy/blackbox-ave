@@ -21,7 +21,7 @@ Key capabilities:
 > ⚠️ Educational & Research Purposes Only 
 > This code is provided *as is* with the explicit intention that it be studied in controlled, legal environments—such as security research labs, malware-analysis sandboxes, or coursework on kernel internals.  
 >
-> *You are solely responsible for any use or misuse.*  
+> You are solely responsible for any use or misuse.  
 > Deploying Ave on systems without the explicit permission of their owners may violate local, national, and international laws. The authors and maintainers accept no liability for damages, data loss, or legal consequences arising from the use of this software.  
 >
 > Always obtain informed, written consent before testing on any device you do not own, and comply with all relevant regulations and organizational policies.
@@ -72,7 +72,7 @@ Ave removes itself from lsmod, sys, and other places where the module is normall
 
 Uses the filldir and filldir64 hooks:
 
-* Everything that’s hidden vanishes from ls, ps, top.
+* Everything thats hidden vanishes from ls, ps, top.
 * No traces in standard utilities.
 
 ### 3. System calls
@@ -111,9 +111,9 @@ Choose from:
 
 ### 9. Logs
 
-* Removes traces from `dmesg`.
+* Removes traces from dmesg.
 * Masks TCP/UDP connections.
-* Hides itself from `/proc`.
+* Hides itself from /proc.
 
 ## Usage:
 
@@ -123,13 +123,13 @@ Choose from:
 kill -SIGCONT 31337
 ```
 
-After that `/proc/interface_name` starts listening for your commands.
+After that /proc/interface_name starts listening for your commands.
 
 ### Gain root
 
 ```bash
 kill -SIGCONT 666
-su      # automatic local privilege escalation
+su     
 ```
 
 ### Hide a process
@@ -240,7 +240,7 @@ lsmod | grep ave
 
 ---
 
-## Step-by-Step (Ubuntu)
+## Start // Ubuntu
 
 1. Install packages:
 
@@ -256,7 +256,7 @@ lsmod | grep ave
    cd /home/user/ave
    ```
 
-3. Build with a `PROCNAME`:
+3. Build with a PROCNAME:
 
    ```bash
    make PROCNAME=hidden
@@ -276,7 +276,7 @@ lsmod | grep ave
    lsmod | grep ave
    ```
 
-6. Build `injection`:
+6. Build injection:
 
    ```bash
    make injection
