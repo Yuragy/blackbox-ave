@@ -8,17 +8,17 @@
 Ave is a loadable Linux kernel module 5.18+ capable of hiding processes, files, and connected sockets at the kernel level, plus substituting system calls and encrypting traffic. It runs on x86-64 and ARM64. In short, it’s a universal tool for stealthily concealing any objects in the system, with extra features for bypassing SELinux/AppArmor, anti-debugging, and a whole set of other functions.
 
 Key capabilities:
-- **Kernel level cloaking** — removes traces from lsmod, /proc, /sys, ps, top.  
-- **File & directory hiding** — filldir/filldir64 hooks suppress listings.  
-- **Dynamic syscall substitution** — live patching of read, kill, clone. 
-- **Encrypted networking** — Netfilter based AES tunnel with signature obfuscation.  
-- **Anti debug & hardening bypass** — blocks ptrace/strace, skirts RELRO/PIE/NX.  
-- **Persistence** — ELF patching & init-system hooks for auto start.  
+- Kernel level cloaking — removes traces from lsmod, /proc, /sys, ps, top.  
+- File & directory hiding — filldir/filldir64 hooks suppress listings.  
+- Dynamic syscall substitution — live patching of read, kill, clone. 
+- Encrypted networking — Netfilter based AES tunnel with signature obfuscation.  
+- Anti debug & hardening bypass — blocks ptrace/strace, skirts RELRO/PIE/NX.  
+- Persistence — ELF patching & init-system hooks for auto start.  
 
 ---
 
 ## Disclaimer
-> ⚠️ Educational & Research Purposes Only 
+> Educational & Research Purposes Only 
 > This code is provided *as is* with the explicit intention that it be studied in controlled, legal environments—such as security research labs, malware-analysis sandboxes, or coursework on kernel internals.  
 >
 > You are solely responsible for any use or misuse.  
